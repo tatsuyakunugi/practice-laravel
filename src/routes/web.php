@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ShopUploadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +18,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ShopController::class, 'index']);
+
+Route::get('/create', [ShopUploadController::class, 'create'])->name('create');
+Route::post('/shop_upload', [ShopUploadController::class, 'store'])->name('shop_upload');
+
+Route::get('/menu', [UserController::class, 'menu']);
+
+Route::get('/register', [RegisterController::class, 'getRegister']);
+Route::post('/register', [RegisterController::class, 'postRegister']);
+Route::get('/auth/thanks', [RegisterController::class, 'thanks']);
+
+Route::get('/login', [LoginController::class, 'getLogin']);
+Route::post('/login', [LoginController::class, 'postLogin']);
+Route::get('/logout', [LoginController::class, 'getLogout']);
