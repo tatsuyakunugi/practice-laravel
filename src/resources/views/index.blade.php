@@ -12,6 +12,33 @@
             <div class="header-item">
                 <a class="link" href="/menu">Rese</a>
             </div>
+            <div class="header-item">
+                <form class="search-form" action="{{ route('shop.index') }}" method="get">
+                    @csrf
+                    <div class="form-group">
+                        <select class="area-select" name="area_id" id="area_id">
+                            <option value="">All area</option>
+                            @foreach($areas as $area)
+                            <option value="{{ $area->id }}">{{ $area->area_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="genre-select" name="genre_id" id="genre_id">
+                            <option value="">All genre</option>
+                            @foreach($genres as $genre)
+                            <option value="{{ $genre->id }}">{{ $genre->genre_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="keyword" value="{{ $keyword }}" placeholder="Search...">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" name="submit" value="検索">
+                    </div>
+                </form>
+            </div>
         </div>
     </header>
     <main class="main">
@@ -24,10 +51,10 @@
             <p>{{ $shop->shop_name }}</p>
         </div>
         <div class="container">
-            <p>{{ $shop->area->area_name }}</p>
+            <p>#{{ $shop->area->area_name }}</p>
         </div>
         <div class="container">
-            <p>{{ $shop->genre->genre_name }}</p>
+            <p>#{{ $shop->genre->genre_name }}</p>
         </div>
         <div class="container">
             <p>{{ $shop->content }}</p>
