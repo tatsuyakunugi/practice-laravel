@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ShopUploadController;
+use App\Http\Controllers\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,10 @@ use App\Http\Controllers\ShopUploadController;
 */
 
 Route::get('/', [ShopController::class, 'index'])->name('shop.index');
+Route::middleware('auth')->group(function () {
+    Route::post('/likes', [ShopController::class, 'store'])->name('likes.store');
+    Route::delete('/likes', [ShopController::class, 'destroy'])->name('likes.destroy');
+});
 
 Route::get('/create', [ShopUploadController::class, 'create'])->name('create');
 Route::post('/shop_upload', [ShopUploadController::class, 'store'])->name('shop_upload');
@@ -32,3 +37,8 @@ Route::get('/auth/thanks', [RegisterController::class, 'thanks']);
 Route::get('/login', [LoginController::class, 'getLogin']);
 Route::post('/login', [LoginController::class, 'postLogin']);
 Route::get('/logout', [LoginController::class, 'getLogout']);
+
+//Route::middleware('auth')->group(function () {
+    //Route::post('/likes', [LikeController::class, 'store'])->name('likes.store');
+    //Route::delete('/likes/destroy', [LikeController::class, 'destroy'])->name('likes.destroy');
+//});

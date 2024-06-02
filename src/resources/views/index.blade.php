@@ -59,6 +59,24 @@
         <div class="container">
             <p>{{ $shop->content }}</p>
         </div>
+        @if(Auth::check())
+        <div class="shop-control">    
+            @if($existingLike)
+            <form class="unlike-form" action="{{ route('likes.destroy') }}" method="post">
+                @method('DELETE')
+                @csrf
+                <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+                <button class="like-button" type="submit">お気に入り解除</button>
+            </form>
+            @else
+            <form class="like-form" action="{{ route('likes.store') }}" method="post">
+                @csrf
+                <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+                <button class="unlike-button" type="submit">お気に入り登録</button>
+            </form>
+            @endif
+        </div>
+        @endif
         @endforeach
     </div>
     </main>
