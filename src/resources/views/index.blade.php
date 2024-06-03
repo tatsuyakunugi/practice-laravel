@@ -61,18 +61,18 @@
         </div>
         @if(Auth::check())
         <div class="shop-control">    
-            @if($existingLike)
-            <form class="unlike-form" action="{{ route('likes.destroy') }}" method="post">
-                @method('DELETE')
+            @if(!Auth::user()->is_like($shop->id))
+            <form class="like-form" action="{{ route('likes.store', $shop) }}" method="post">
                 @csrf
-                <input type="hidden" name="shop_id" value="{{ $shop->id }}">
-                <button class="like-button" type="submit">お気に入り解除</button>
+                <!--<input type="hidden" name="shop_id" value="{{ $shop->id }}">-->
+                <button class="like-button" type="submit">お気に入り登録</button>
             </form>
             @else
-            <form class="like-form" action="{{ route('likes.store') }}" method="post">
+            <form class="like-form" action="{{ route('likes.destroy', $shop) }}" method="post">
                 @csrf
-                <input type="hidden" name="shop_id" value="{{ $shop->id }}">
-                <button class="unlike-button" type="submit">お気に入り登録</button>
+                @method('DELETE')
+                <!--<input type="hidden" name="shop_id" value="{{ $shop->id }}">-->
+                <button class="unlike-button" type="submit">お気に入り解除</button>
             </form>
             @endif
         </div>
