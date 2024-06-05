@@ -56,9 +56,6 @@
         <div class="container">
             <p>#{{ $shop->genre->genre_name }}</p>
         </div>
-        <div class="container">
-            <p>{{ $shop->content }}</p>
-        </div>
         @if(Auth::check())
         <div class="shop-control">    
             @if(!Auth::user()->is_like($shop->id))
@@ -68,7 +65,7 @@
                 <button class="like-button" type="submit">お気に入り登録</button>
             </form>
             @else
-            <form class="like-form" action="{{ route('likes.destroy', $shop) }}" method="post">
+            <form class="unlike-form" action="{{ route('likes.destroy', $shop) }}" method="post">
                 @csrf
                 @method('DELETE')
                 <!--<input type="hidden" name="shop_id" value="{{ $shop->id }}">-->
@@ -77,6 +74,9 @@
             @endif
         </div>
         @endif
+        <div class="shop-control">
+            <a class="detail__link" href="/detail/{{ $shop->id }}">詳しく見る</a>
+        </div>
         @endforeach
     </div>
     </main>

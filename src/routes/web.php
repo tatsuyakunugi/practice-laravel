@@ -20,10 +20,10 @@ use App\Http\Controllers\LikeController;
 */
 
 Route::get('/', [ShopController::class, 'index'])->name('shop.index');
-//Route::middleware('auth')->group(function () {
-    //Route::post('/likes', [ShopController::class, 'store'])->name('likes.store');
-    //Route::delete('/likes', [ShopController::class, 'destroy'])->name('likes.destroy');
-//});
+Route::get('/detail/{shop_id}', [ShopController::class, 'detail']);
+Route::middleware('auth')->group(function () {
+    Route::get('/done', [ShopController::class, 'done']);
+});
 
 Route::get('/create', [ShopUploadController::class, 'create'])->name('create');
 Route::post('/shop_upload', [ShopUploadController::class, 'store'])->name('shop_upload');
@@ -39,6 +39,6 @@ Route::post('/login', [LoginController::class, 'postLogin']);
 Route::get('/logout', [LoginController::class, 'getLogout']);
 
 Route::middleware('auth')->group(function () {
-    Route::post('/likes/{shop}', [LikeController::class, 'store'])->name('likes.store');
-    Route::delete('/likes{shop}', [LikeController::class, 'destroy'])->name('likes.destroy');
+    Route::post('/like/{shop}', [LikeController::class, 'store'])->name('likes.store');
+    Route::delete('/unlike{shop}', [LikeController::class, 'destroy'])->name('likes.destroy');
 });

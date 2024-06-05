@@ -10,7 +10,9 @@ use App\Models\Shop;
 use App\Models\Area;
 use App\Models\Genre;
 use App\Models\Like;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class ShopController extends Controller
 {
@@ -90,4 +92,22 @@ class ShopController extends Controller
         
         //return back();
     //}
+
+    public function detail($id)
+    {
+        $shop = Shop::find($id);
+        $times = Config::get('times');
+
+        return view('detail', compact('shop', 'times'));
+    }
+
+    public function done(Request $request)
+    {
+        $shop = Shop::find($request->input('shop_id'));
+        $reservationDate = Carbon::parse($request->input('date'))->format('Y-m-d');
+        $reservationTime = Carbon::createFromTimeString($request->input('time'))->format('H:i');
+        $number_of_people = $request->input('number_of_people');
+
+        return view('done', compact('shop', 'reservationDate', 'reservationTime', 'number_of_people'));
+    }
 }
