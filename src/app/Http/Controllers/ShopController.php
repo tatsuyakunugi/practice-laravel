@@ -96,9 +96,16 @@ class ShopController extends Controller
     public function detail($id)
     {
         $shop = Shop::find($id);
-        $times = Config::get('times');
+        //$times = Config::get('times');
 
-        return view('detail', compact('shop', 'times'));
+        return view('detail', compact('shop'));
+    }
+
+    public function livewire()
+    {
+        $shop = Shop::find(1);
+
+        return view('livewire', compact('shop'));
     }
 
     public function done(Request $request)

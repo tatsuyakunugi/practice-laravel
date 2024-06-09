@@ -21,6 +21,7 @@ use App\Http\Controllers\LikeController;
 
 Route::get('/', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/detail/{shop_id}', [ShopController::class, 'detail']);
+Route::get('/livewire', [ShopController::class, 'livewire']);
 Route::middleware('auth')->group(function () {
     Route::get('/done', [ShopController::class, 'done']);
 });
