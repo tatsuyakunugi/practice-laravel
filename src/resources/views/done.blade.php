@@ -15,26 +15,12 @@
         </div>
     </header>
     <main class="main">
-        @if(Auth::check())
-        <div class="detail__content">
-            <div class="shop-card">
-                <div class="container">
-                   <img src="{{ Storage::url($shop->shop_image_path) }}" alt="">
-                </div>
-            <div class="container">
-                <p>{{ $shop->shop_name }}</p>
-            </div>
-            <div class="container">
-                <p>{{ $reservationDate }}</p>
-            </div>
-            <div class="container">
-                <p>{{ $reservationTime }}</p>
-            </div>
-            <div class="container">
-                <p>{{ $number_of_people }}</p>
-            </div>
+        <div class="complete-message">
+            <p>予約が完了しました</p>
         </div>
-        @endif    
+        <div class="link">
+            <a href="/">戻る</a>
+        </div>
     </main>
 </body>
 </html>

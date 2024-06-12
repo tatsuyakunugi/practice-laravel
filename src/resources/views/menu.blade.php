@@ -27,6 +27,9 @@
                     <a href="/login">Login</a>
                 </div>
                 @if(Auth::check())
+                <div class="maypage__link">
+                    <a href="/mypage">Mypage</a>
+                </div>
                 <div class="logout__link">
                     <form action="/logout" method="get">
                         @csrf

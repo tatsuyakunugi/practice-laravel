@@ -10,6 +10,7 @@ use App\Models\Shop;
 use App\Models\Area;
 use App\Models\Genre;
 use App\Models\Like;
+use App\Models\Reservation;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -96,7 +97,6 @@ class ShopController extends Controller
     public function detail($id)
     {
         $shop = Shop::find($id);
-        //$times = Config::get('times');
 
         return view('detail', compact('shop'));
     }
@@ -108,13 +108,16 @@ class ShopController extends Controller
         return view('livewire', compact('shop'));
     }
 
-    public function done(Request $request)
-    {
-        $shop = Shop::find($request->input('shop_id'));
-        $reservationDate = Carbon::parse($request->input('date'))->format('Y-m-d');
-        $reservationTime = Carbon::createFromTimeString($request->input('time'))->format('H:i');
-        $number_of_people = $request->input('number_of_people');
+    //public function done(Request $request)
+    //{
+        //$shop = Shop::find($request->input('shop_id'));
+        //$date = $request->input('date');
+        //$reservationDate = Carbon::parse($request->input('date'))->format('Y-m-d');
+        //$time = $request->input('time');
+        //$reservationTime = Carbon::createFromTimeString($request->input('time'))->format('H:i');
+        //$reservationDateTime = Carbon::parse($reservationDate . '' . $reservationTime)->format('Y-m-d H:i');
+        //$number_of_people = $request->input('number_of_people');
 
-        return view('done', compact('shop', 'reservationDate', 'reservationTime', 'number_of_people'));
-    }
+        //return view('done', compact('shop', 'reservationDateTime', 'number_of_people'));
+    //}
 }

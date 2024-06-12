@@ -7,6 +7,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ShopUploadController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,14 +23,17 @@ use App\Http\Controllers\LikeController;
 Route::get('/', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/detail/{shop_id}', [ShopController::class, 'detail']);
 Route::get('/livewire', [ShopController::class, 'livewire']);
-Route::middleware('auth')->group(function () {
-    Route::get('/done', [ShopController::class, 'done']);
-});
+//Route::middleware('auth')->group(function () {
+    //Route::get('/done', [ShopController::class, 'done']);
+//});
 
 Route::get('/create', [ShopUploadController::class, 'create'])->name('create');
 Route::post('/shop_upload', [ShopUploadController::class, 'store'])->name('shop_upload');
 
 Route::get('/menu', [UserController::class, 'menu']);
+Route::middleware('auth')->group(function () {
+    Route::get('/mypage', [UserController::class, 'mypage']);
+});
 
 Route::get('/register', [RegisterController::class, 'getRegister']);
 Route::post('/register', [RegisterController::class, 'postRegister']);
@@ -42,4 +46,8 @@ Route::get('/logout', [LoginController::class, 'getLogout']);
 Route::middleware('auth')->group(function () {
     Route::post('/like/{shop}', [LikeController::class, 'store'])->name('likes.store');
     Route::delete('/unlike{shop}', [LikeController::class, 'destroy'])->name('likes.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::post('/done', [ReservationController::class, 'store'])->name('reservations.store');
 });
