@@ -24,6 +24,8 @@ class UserController extends Controller
     public function mypage()
     {
         $user = Auth::user();
+        $shops = '';
+        $reservations = '';
         
         if(Like::where('user_id', $user->id)->exists())
         {

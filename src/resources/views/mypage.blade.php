@@ -17,9 +17,14 @@
     <main class="main">
         <div class="main__heading">
             <div class="user_name">
-                <p>{{ $user->name }}</p>
+                <p>{{ $user->name }}さん</p>
             </div>
         </div>
+        @if(empty($reservations))
+        <div class="message">
+            <p>予約はありません</p>
+        </div>
+        @else
         @foreach($reservations as $reservation)
         <div class="reservation-wrapper">
             <div class="reservation-wrapper__title">
@@ -36,7 +41,10 @@
                         </form>
                     </div>
                     <div class="delete-form">
-                        <form action="" method="">
+                        <form action="{{ route('reservations.destroy') }}" method="post">
+                            @method('DELETE')
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $reservation->id }}">
                             <button class="form__button-submit">予約取り消し</button>
                         </form>
                     </div>
@@ -80,7 +88,13 @@
             </div>
         </div>
         @endforeach
+        @endif
     <div class="shop-wrapper">
+        @if(empty($shops))
+        <div class="message">
+            <p>お気に入りの店舗はありません</p>
+        </div>
+        @else
         @foreach ($shops as $shop)
         <div class="container">
             <img src="{{ Storage::url($shop->shop_image_path) }}" alt="">
@@ -98,14 +112,12 @@
             @if(!Auth::user()->is_like($shop->id))
             <form class="like-form" action="{{ route('likes.store', $shop) }}" method="post">
                 @csrf
-                <!--<input type="hidden" name="shop_id" value="{{ $shop->id }}">-->
                 <button class="like-button" type="submit">お気に入り登録</button>
             </form>
             @else
             <form class="unlike-form" action="{{ route('likes.destroy', $shop) }}" method="post">
                 @csrf
                 @method('DELETE')
-                <!--<input type="hidden" name="shop_id" value="{{ $shop->id }}">-->
                 <button class="unlike-button" type="submit">お気に入り解除</button>
             </form>
             @endif
@@ -114,6 +126,7 @@
             <a class="detail__link" href="/detail/{{ $shop->id }}">詳しく見る</a>
         </div>
         @endforeach
+        @endif
     </div>
     </main>
 </body>

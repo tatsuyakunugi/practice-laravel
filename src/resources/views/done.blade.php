@@ -16,7 +16,9 @@
     </header>
     <main class="main">
         <div class="complete-message">
-            <p>予約が完了しました</p>
+            @if(Session::has('message'))
+            <p>{{ session('message') }}</p>
+            @endif
         </div>
         <div class="link">
             <a href="/">戻る</a>

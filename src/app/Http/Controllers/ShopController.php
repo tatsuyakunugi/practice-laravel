@@ -101,12 +101,12 @@ class ShopController extends Controller
         return view('detail', compact('shop'));
     }
 
-    public function livewire()
-    {
-        $shop = Shop::find(1);
+    //public function livewire()
+    //{
+        //$shop = Shop::find(1);
 
-        return view('livewire', compact('shop'));
-    }
+        //return view('livewire', compact('shop'));
+    //}
 
     //public function done(Request $request)
     //{
