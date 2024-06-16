@@ -36,9 +36,9 @@
                         <p>予約</p>
                     </div>
                     <div class="update-form">
-                        <form action="" method="">
-                            <button class="form__button-submit">内容変更</button>
-                        </form>
+                        <div class="reservation-control">
+                            <a class="edit__link" href="{{ route('reservations.edit', $reservation->id)}}">予約内容変更</a>
+                        </div>
                     </div>
                     <div class="delete-form">
                         <form action="{{ route('reservations.destroy') }}" method="post">
