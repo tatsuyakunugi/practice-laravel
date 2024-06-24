@@ -31,7 +31,7 @@
                     <a href="/mypage">Mypage</a>
                 </div>
                 <div class="logout__link">
-                    <form action="/logout" method="get">
+                    <form action="/logout" method="post">
                         @csrf
                         <button>Logout</button>
                     </form>

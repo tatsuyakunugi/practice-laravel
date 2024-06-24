@@ -20,23 +20,26 @@
             <div class="shop-card">
                 <div class="container">
                    <img src="{{ Storage::url($shop->shop_image_path) }}" alt="">
+                </div>            
+                <div class="container">
+                    <p>{{ $shop->shop_name }}</p>
                 </div>
-            <div class="container">
-                <p>{{ $shop->shop_name }}</p>
-            </div>
-            <div class="container">
-                <p>#{{ $shop->area->area_name }}</p>
-            </div>
-            <div class="container">
-                <p>#{{ $shop->genre->genre_name }}</p>
-            </div>
-            <div class="container">
-                <p>{{ $shop->content }}</p>
-            </div>
+                <div class="container">
+                    <p>#{{ $shop->area->area_name }}</p>
+                </div>
+                <div class="container">
+                    <p>#{{ $shop->genre->genre_name }}</p>
+                </div>
+                <div class="container">
+                    <p>{{ $shop->content }}</p>
+                </div>
             </div>
         </div>
         <livewire:select :shop="$shop">
     </main>
     @livewireScripts
+    <div class="link">
+        <a class="review__link" href="/list/{{ $shop->id }}">このお店のレビューをを見る</a>
+    </div>
 </body>
 </html>

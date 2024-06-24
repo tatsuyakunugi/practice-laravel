@@ -10,6 +10,11 @@ services:
       - ./src:/var/www/
     depends_on:
       - php
+  
+  mail:
+    image: mailhog/mailhog
+    ports:
+      - 8025:8025
 
   php:
     build: ./docker/php

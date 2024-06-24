@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ShopUploadController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,7 @@ use App\Http\Controllers\ReservationController;
 
 Route::get('/', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/detail/{shop_id}', [ShopController::class, 'detail']);
-Route::get('/livewire', [ShopController::class, 'livewire']);
+//Route::get('/livewire', [ShopController::class, 'livewire']);
 //Route::middleware('auth')->group(function () {
     //Route::get('/done', [ShopController::class, 'done']);
 //});
@@ -41,7 +42,8 @@ Route::get('/auth/thanks', [RegisterController::class, 'thanks']);
 
 Route::get('/login', [LoginController::class, 'getLogin']);
 Route::post('/login', [LoginController::class, 'postLogin']);
-Route::get('/logout', [LoginController::class, 'getLogout']);
+Route::post('/logout', [LoginController::class, 'postLogout']);
+//Route::get('/logout', [LoginController::class, 'getLogout']);
 
 Route::middleware('auth')->group(function () {
     Route::post('/like/{shop}', [LikeController::class, 'store'])->name('likes.store');
@@ -54,3 +56,8 @@ Route::middleware('auth')->group(function () {
     Route::put('done', [ReservationController::class, 'update'])->name('reservations.update');
     Route::delete('/done', [ReservationController::class, 'destroy'])->name('reservations.destroy');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::post('/review', [ReviewController::class, 'store'])->name('reviews.store');
+});
+Route::get('/list/{shop_id}', [ReviewController::class, 'list']);

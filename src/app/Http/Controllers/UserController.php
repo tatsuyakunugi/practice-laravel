@@ -23,6 +23,7 @@ class UserController extends Controller
 
     public function mypage()
     {
+        $today = Carbon::today();
         $user = Auth::user();
         $shops = '';
         $reservations = '';
@@ -37,6 +38,6 @@ class UserController extends Controller
             $reservations = Reservation::where('user_id', $user->id)->get();
         }
         
-        return view('mypage', compact('user', 'shops', 'reservations'));
+        return view('mypage', compact('user', 'shops', 'reservations', 'today'));
     }
 }
