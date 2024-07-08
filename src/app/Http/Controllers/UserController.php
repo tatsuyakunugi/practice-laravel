@@ -10,6 +10,7 @@ use App\Models\Area;
 use App\Models\Genre;
 use App\Models\Like;
 use App\Models\Reservation;
+use App\Models\Review;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -23,7 +24,6 @@ class UserController extends Controller
 
     public function mypage()
     {
-        $today = Carbon::today();
         $user = Auth::user();
         $shops = '';
         $reservations = '';
@@ -38,6 +38,6 @@ class UserController extends Controller
             $reservations = Reservation::where('user_id', $user->id)->get();
         }
         
-        return view('mypage', compact('user', 'shops', 'reservations', 'today'));
+        return view('mypage', compact('user', 'shops', 'reservations'));
     }
 }

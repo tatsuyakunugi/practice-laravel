@@ -24,8 +24,11 @@ class ReviewController extends Controller
             'comment' => 'required',
         ]);
 
+        $now = Carbon::now();
         $user = Auth::user();
         $shop = Shop::find($request->input('shop_id'));
+        $reservation = Reservation::where('user_id', $user->id)->where('shop_id', $shop->id)->first();
+        $reservationDateTime = Carbon::createFromTimeString($reservation->reservation_day);
         $review = '';
 
         if(Review::where('user_id', $user->id)->where('shop_id', $shop->id)->exists())
@@ -33,18 +36,23 @@ class ReviewController extends Controller
             return back()->with('error', 'すでにこのお店のレビューは投稿しています');
         }
 
-        $review = new Review([
-            'user_id' => $user->id,
-            'shop_id' => $shop->id,
-            'rating' => $request->input('rating'),
-            'comment' => $request->input('comment'),
-        ]);
-
-        //保存
-        $review->save();
-        
-        Session::put('message', 'ご協力ありがとうございました。');
-        return view('review');
+        if($reservationDateTime->isPast())
+        {
+            $review = new Review([
+                'user_id' => $user->id,
+                'shop_id' => $shop->id,
+                'rating' => $request->input('rating'),
+                'comment' => $request->input('comment'),
+            ]);
+    
+            //保存
+            $review->save();
+            
+            Session::put('message', 'ご協力ありがとうございました。');
+            return view('review');
+        }else{
+            return back()->with('error', 'レビュー投稿はご利用日時以降からから可能となります。');
+        }
     }
 
     public function list($id)

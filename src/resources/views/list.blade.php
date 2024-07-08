@@ -16,13 +16,11 @@
     </header>
     <main class="main">
         <div class="list__content">
-            <dev class="alert">
-                @if(session('error'))
-                <div class="alert__danger">
-                    {{ session('error') }}
-                </div>
-                @endif
-            </dev>
+            @if(!$reviews)
+            <div class="comment">
+                <p>まだレビューはありません</p>
+            </div>
+            @else
             <div class="list__content--inner">
                 @foreach($reviews as $review)
                 <h2 class="shop-name">
@@ -54,6 +52,7 @@
                 </div>
                 @endforeach
             </div>
+            @endif
         </div>
         <div class="link">
             <a href="/">戻る</a>

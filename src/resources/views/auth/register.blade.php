@@ -68,7 +68,7 @@
                 </div>
                 <div class="register-form__button">
                     <button class="register-form__button-submit" type="submit">
-                        登録
+                        確認画面へ
                     </button>
                 </div>
             </form>

@@ -17,9 +17,11 @@
     <main class="main">
         <div class="content">
             <div class="thanks">
-                <div class="thanks-message">
-                    <p>会員登録ありがとうございます</p>
-                </div>
+                @isset($message)
+                <div class="card-body">
+                        {{$message}}
+                    </div>
+                @endisset
                 <div class="login__link">
                     <a href="/login">ログインする</a>
                 </div>

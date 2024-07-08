@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ReminderEmail extends Mailable
+class EmailVerification extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,9 +16,10 @@ class ReminderEmail extends Mailable
      *
      * @return void
      */
-    public function __construct($reservation)
+    public $user;
+    public function __construct($user)
     {
-        $this->reservation = $reservation;
+        $this->user = $user;
     }
 
     /**
@@ -29,8 +30,8 @@ class ReminderEmail extends Mailable
     public function build()
     {
         return $this
-            ->subject('ご予約の確認')
-            ->view('email.reminder')
-            ->with(['user' => $this->reservation,]);
+            ->subject('仮登録が完了しました')
+            ->view('auth.email.pre_register')
+            ->with(['token' => $this->user->email_verify_token,]);
     }
 }
