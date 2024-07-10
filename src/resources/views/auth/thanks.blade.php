@@ -17,14 +17,18 @@
     <main class="main">
         <div class="content">
             <div class="thanks">
-                @isset($message)
-                <div class="card-body">
-                        {{$message}}
-                    </div>
-                @endisset
+                @if(Session::has('error'))
+                <div class="error">
+                    <p>{{ session('error') }}</p>
+                </div>
+                @else(Session::has('message'))
+                <div class="sucsess">
+                    <p>{{ session('message') }}</p>
+                </div>
                 <div class="login__link">
                     <a href="/login">ログインする</a>
                 </div>
+                @endif
             </div>
         </div>
     </main>

@@ -51,7 +51,6 @@ class User extends Authenticatable
     public function verified()
     {
         $this->email_verified_at = Carbon::now();
-        $this->email_verify_token = null;
         $this->email_verified = 1;
         $this->save();
     }

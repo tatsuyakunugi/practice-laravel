@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Session;
 
 class RegisterController extends Controller
 {
@@ -60,12 +61,15 @@ class RegisterController extends Controller
 
         if(!$user)
         {
-            return view('auth.thanks')->with('message', '無効なトークンです。');
+            Session::put('error', '無効なトークンです');
+            return view('auth.thanks');
         }elseif($user->email_verified){
-            return view('auth.thanks')->with('message', 'すでに本登録されています。ログインして利用してください。');
+            Session::put('message', 'すでに本登録されています。ログインして利用してください。');
+            return view('auth.thanks');
         }else{
             $user->verified();
-            return view('auth.thanks')->with('message', 'ご登録ありがとうございました。ログインして利用してください。');
+            Session::put('message', 'ご登録ありがとうございました。ログインして利用してください。');
+            return view('auth.thanks');
         }   
     }
 
