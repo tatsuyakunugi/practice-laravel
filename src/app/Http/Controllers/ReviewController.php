@@ -16,7 +16,14 @@ use App\Http\Requests\ReviewRequest;
 use Carbon\Carbon;
 
 class ReviewController extends Controller
-{
+{   
+    public function review($id)
+    {
+        $reservation = Reservation::find($id);
+
+        return view('review', compact('reservation'));
+    }
+    
     public function store(ReviewRequest $request)
     {
         $this->validate($request,[
@@ -49,7 +56,7 @@ class ReviewController extends Controller
             $review->save();
             
             Session::put('message', 'ご協力ありがとうございました。');
-            return view('review');
+            return view('completion');
         }else{
             return back()->with('error', 'レビュー投稿はご利用日時以降からから可能となります。');
         }

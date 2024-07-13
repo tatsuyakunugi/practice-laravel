@@ -26,6 +26,6 @@ class ShopUploadController extends Controller
         $shop->shop_image_path = $shop_image_path;
         $shop->save();
 
-        return redirect('/');
+        return redirect('create')->with('message', 'アップロードに成功しました。');
     }
 }

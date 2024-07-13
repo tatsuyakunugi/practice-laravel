@@ -86,16 +86,10 @@
                         </div>
                     </div>
                 </div>
-                <livewire:review :reservation="$reservation">
-                @livewireScripts
-            </div>
-            <dev class="alert">
-                @if(session('error'))
-                <div class="alert__danger">
-                    {{ session('error') }}
+                <div class="reviwe__link">
+                    <a href="/review/{{ $reservation->id }}">レビューを投稿する</a>
                 </div>
-                @endif
-            </dev>
+            </div>
         </div>
         @endforeach
         @endif
